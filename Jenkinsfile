@@ -40,7 +40,7 @@ pipeline {
 //				junit "nosetests.xml"
 //			}
 //		}
-		stage('Store Artifact'){
+		stage('Archive App'){
 			steps{
 				script{
 					def safeBuildName  = "${APP_NAME}_${BUILD_NUMBER}",
@@ -89,6 +89,31 @@ pipeline {
                 		}
             		}
        	 	}
+		stage('Deploy to DEV') {
+            		when {
+                		expression {
+                    			openshift.withCluster() {
+                        			openshift.withProject(env.DEV_PROJECT) {
+                            				return !openshift.selector('dc', "${TEMPLATE_NAME}").exists()
+                        			}
+                    			}
+                		}
+            		}
+            		steps {
+                		script {
+                    			openshift.withCluster() {
+                        			openshift.withProject(env.DEV_PROJECT) {
+                            				def app = openshift.newApp("${TEMPLATE_NAME}:latest")
+                            				app.narrow("svc").expose("--port=${PORT}");
+                            				def dc = openshift.selector("dc", "${TEMPLATE_NAME}")
+                            				while (dc.object().spec.replicas != dc.object().status.availableReplicas) {
+                               	 				sleep 10
+                            				}
+                        			}
+                    			}
+                		}
+            		}
+        	}
 	}
 }
 
