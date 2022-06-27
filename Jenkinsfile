@@ -3,7 +3,7 @@ pipeline {
 		node {label 'python'}
 	}
 	environment {
-		APP_NAME = 'python-webapp'
+		APP_NAME = 'PySimple'
 		GIT_REPO = 'https://github.com/candrabiondi/PySimple.git'
 		GIT_BRANCH = 'master'
 		DEV = 'dev'
