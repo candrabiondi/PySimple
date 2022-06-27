@@ -41,7 +41,7 @@ pipeline {
 		}
 		stage('Create image Builder'){
 			when {
-				exression {
+				expression {
 					openshift.withCluster() {
 						openshift.withProject(DEV_PROJECT){
 							return !openshift.selector("bc", "${TEMPLATE_NAME}").exist();
