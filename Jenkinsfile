@@ -30,16 +30,16 @@ pipeline {
 				"""
 			}
 		}
-		stage('Run Tests') {
-			steps {
-				sh '''
-				source bin/activate
-				nosetests app --with-xunit
-				deactivate
-				'''
-				junit "nosetests.xml"
-			}
-		}
+//		stage('Run Tests') {
+//			steps {
+//				sh '''
+//				source bin/activate
+//				nosetests app --with-xunit
+//				deactivate
+//				'''
+//				junit "nosetests.xml"
+//			}
+//		}
 		stage('Store Artifact'){
 			steps{
 				script{
