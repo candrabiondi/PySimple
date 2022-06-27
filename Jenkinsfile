@@ -34,7 +34,7 @@ pipeline {
 			steps {
 				sh '''
 				source bin/activate
-				nosetest app --with-xunit
+				nosetests app --with-xunit
 				deactivate
 				'''
 				junit "nosetests.xml"
