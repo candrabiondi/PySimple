@@ -63,7 +63,7 @@ pipeline {
 				expression {
 					openshift.withCluster() {
 						openshift.withProject(DEV){
-							return !openshift.selector("bc", "${TEMPLATE_NAME}").exist();
+							openshift.selector("bc", "${TEMPLATE_NAME}").exist();
 						}
 					}
 				}
