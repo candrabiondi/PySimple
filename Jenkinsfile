@@ -72,7 +72,7 @@ pipeline {
 				script {
 					openshift.withCluster() {
 						openshift.withProject(DEV) {
-							openshift.newBuild("--name=${TEMPLATE_NAME}", "--docker-image=docker.io/python:3.10.1-alpine3.15", "--binary=true")
+							openshift.selector("bc", "$TEMPLATE_NAME").startBuild("--from-archive=${ARTIFACT_FOLDER}/${APP_NAME}_${BUILD_NUMBER}.tar.gz", "--wait=true")
 						}
 					}
 				}
