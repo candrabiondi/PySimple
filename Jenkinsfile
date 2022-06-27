@@ -22,6 +22,7 @@ pipeline {
 			steps {
 				sh """
 				pip install virtualenv
+				pip install --upgrade virtualenv==16.7.9
 				virtualenv --no-site-packages .
 				source bin/activate
 				pip install -r requirement.txt
