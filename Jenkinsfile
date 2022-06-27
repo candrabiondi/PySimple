@@ -53,7 +53,7 @@ pipeline {
 				script {
 					openshift.withCluster() {
 						openshift.withProject(DEV_PROJECT) {
-							openshift.newBuild("--name=${TEMPLATE_NAME}", "--docker-image=docker.io/python:3.10.1-alpine3.15", "--binary=true"
+							openshift.newBuild("--name=${TEMPLATE_NAME}", "--docker-image=docker.io/python:3.10.1-alpine3.15", "--binary=true")
 						}
 					}
 				}
