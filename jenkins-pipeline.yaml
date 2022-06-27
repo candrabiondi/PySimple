@@ -8,7 +8,7 @@ spec:
     source:
         git:
             ref: master
-            uri: 
+            uri: https://github.com/candrabiondi/PySimple.git
     strategy:
         jenkinsPipelineStrategy:
             jenkinsfilePath: Jenkinsfile
