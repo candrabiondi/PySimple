@@ -43,7 +43,7 @@ pipeline {
 		stage('Store Artifact'){
 			steps{
 				script{
-					def safeBuildName  = "${APPLICATION_NAME}_${BUILD_NUMBER}",
+					def safeBuildName  = "${APP_NAME}_${BUILD_NUMBER}",
                         		artifactFolder = "${ARTIFACT_FOLDER}",
                         		fullFileName   = "${safeBuildName}.tar.gz",
                         		applicationZip = "${artifactFolder}/${fullFileName}"
