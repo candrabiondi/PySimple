@@ -62,7 +62,7 @@ pipeline {
 			when {
 				expression {
 					openshift.withCluster() {
-						openshift.withProject(DEV_PROJECT){
+						openshift.withProject(DEV){
 							return !openshift.selector("bc", "${TEMPLATE_NAME}").exist();
 						}
 					}
@@ -71,7 +71,7 @@ pipeline {
 			steps {
 				script {
 					openshift.withCluster() {
-						openshift.withProject(DEV_PROJECT) {
+						openshift.withProject(DEV) {
 							openshift.newBuild("--name=${TEMPLATE_NAME}", "--docker-image=docker.io/python:3.10.1-alpine3.15", "--binary=true")
 						}
 					}
