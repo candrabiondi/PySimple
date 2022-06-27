@@ -47,7 +47,7 @@ pipeline {
                         		artifactFolder = "${ARTIFACT_FOLDER}",
                         		fullFileName   = "${safeBuildName}.tar.gz",
                         		applicationZip = "${artifactFolder}/${fullFileName}"
-                        		applicationDir = [".",
+                        		applicationDir = ["app",
 							  "Dockerfile",
                                             		 ].join(" ");
                     			def needTargetPath = !fileExists("${artifactFolder}")
