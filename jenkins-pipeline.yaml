@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+    labels:
+        app: python-simple-webapp
+    name: python-simple-webapp
+spec:
+    source:
+        git:
+            ref: master
+            uri: 
+    strategy:
+        jenkinsPipelineStrategy:
+            jenkinsfilePath: Jenkinsfile
+        type: JenkinsPipeline
+    triggers:
+        - github:
+            secret: secret
+          type: GitHub
+        - generic:
+            secret: secret
+          type: Generic
