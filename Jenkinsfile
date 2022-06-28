@@ -14,14 +14,14 @@ pipeline {
 	}
 	stages {
 		stage('Get Latest Code'){
-			echo 'GET LATEST CODE'
 			steps {
+				echo "GET LATEST CODE"
 				git branch: "${GIT_BRANCH}", url: "${GIT_REPO}"
 			}
 		}
 		stage("Install Dependencies"){
-			echo 'INSTALL DEPENDENCIES'
 			steps {
+				echo "INSTALL DEPENDENCIES"
 				sh """
 				pip install virtualenv
 				pip install --upgrade virtualenv==16.7.9
@@ -43,8 +43,8 @@ pipeline {
 //			}
 //		}
 		stage('Archive App'){
-			echo 'ARCHIVE APP'
 			steps{
+				echo "ARCHIVE APP"
 				script{
 					def safeBuildName  = "${APP_NAME}_${BUILD_NUMBER}",
                         		artifactFolder = "${ARTIFACT_FOLDER}",
@@ -63,7 +63,6 @@ pipeline {
 			}
 		}
 		stage('Create image Builder'){
-			echo 'CREATE IMAGE BUILDER'
 			when {
 				expression {
 					openshift.withCluster() {
@@ -74,6 +73,7 @@ pipeline {
 				}
 			}
 			steps {
+				echo "CREATE IMAGE BUILDER"
 				script {
 					openshift.withCluster() {
 						openshift.withProject(env.DEV) {
@@ -84,8 +84,8 @@ pipeline {
 			}
 		}
 		stage('Build Image') {
-			echo "BUILD IMAGE"
             		steps {
+				echo "BUILD IMAGE"
                 		script {
                     			openshift.withCluster() {
                         			openshift.withProject(env.DEV) {
@@ -96,7 +96,6 @@ pipeline {
             		}
        	 	}
 		stage('Deploy to DEV') {
-			echo 'DEPLOY TO DEV PROJECT'
             		when {
                 		expression {
                     			openshift.withCluster() {
@@ -107,6 +106,7 @@ pipeline {
                 		}
             		}
             		steps {
+				echo "DEPLOY TO DEV PROJECT"
                 		script {
                     			openshift.withCluster() {
                         			openshift.withProject(env.DEV_PROJECT) {
