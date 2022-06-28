@@ -66,7 +66,7 @@ pipeline {
 			when {
 				expression {
 					openshift.withCluster() {
-						openshift.withProject(DEV){
+						openshift.withProject(env.DEV){
 							return !openshift.selector("bc", "${TEMPLATE_NAME}").exists();
 						}
 					}
@@ -99,7 +99,7 @@ pipeline {
             		when {
                 		expression {
                     			openshift.withCluster() {
-                        			openshift.withProject(env.DEV_PROJECT) {
+                        			openshift.withProject(env.DEV) {
                             				return !openshift.selector('dc', "${TEMPLATE_NAME}").exists()
                         			}
                     			}
@@ -109,7 +109,7 @@ pipeline {
 				echo "DEPLOY TO DEV PROJECT"
                 		script {
                     			openshift.withCluster() {
-                        			openshift.withProject(env.DEV_PROJECT) {
+                        			openshift.withProject(env.DEV) {
                             				def app = openshift.newApp("${TEMPLATE_NAME}:latest")
                             				app.narrow("svc").expose("--port=${PORT}");
                             				def dc = openshift.selector("dc", "${TEMPLATE_NAME}")
