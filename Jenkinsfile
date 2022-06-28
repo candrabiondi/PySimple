@@ -55,7 +55,7 @@ pipeline {
                                             		 ].join(" ");
                     			def needTargetPath = !fileExists("${artifactFolder}")
                     			if (needTargetPath) {
-                        		sh "mkdir ${artifactFolder}"
+                        			sh "mkdir ${artifactFolder}"
                     			}
                     			sh "tar -czvf ${applicationZip} ${applicationDir}"
                     			archiveArtifacts artifacts: "${applicationZip}", excludes: null, onlyIfSuccessful: true
