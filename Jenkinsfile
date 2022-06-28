@@ -14,11 +14,13 @@ pipeline {
 	}
 	stages {
 		stage('Get Latest Code'){
+			echo 'GET LATEST CODE'
 			steps {
 				git branch: "${GIT_BRANCH}", url: "${GIT_REPO}"
 			}
 		}
 		stage("Install Dependencies"){
+			echo 'INSTALL DEPENDENCIES'
 			steps {
 				sh """
 				pip install virtualenv
@@ -41,6 +43,7 @@ pipeline {
 //			}
 //		}
 		stage('Archive App'){
+			echo 'ARCHIVE APP'
 			steps{
 				script{
 					def safeBuildName  = "${APP_NAME}_${BUILD_NUMBER}",
@@ -60,6 +63,7 @@ pipeline {
 			}
 		}
 		stage('Create image Builder'){
+			echo 'CREATE IMAGE BUILDER'
 			when {
 				expression {
 					openshift.withCluster() {
@@ -80,6 +84,7 @@ pipeline {
 			}
 		}
 		stage('Build Image') {
+			echo "BUILD IMAGE"
             		steps {
                 		script {
                     			openshift.withCluster() {
@@ -91,6 +96,7 @@ pipeline {
             		}
        	 	}
 		stage('Deploy to DEV') {
+			echo 'DEPLOY TO DEV PROJECT'
             		when {
                 		expression {
                     			openshift.withCluster() {
