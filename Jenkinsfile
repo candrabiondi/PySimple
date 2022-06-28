@@ -3,14 +3,14 @@ pipeline {
 		node {label 'python'}
 	}
 	environment {
-		APP_NAME = 'PySimple'
+		APP_NAME = 'pysimple'
 		GIT_REPO = 'https://github.com/candrabiondi/PySimple.git'
 		GIT_BRANCH = 'master'
-		DEV = 'dev'
-		STAGE = 'stage'
-		TEMPLATE_NAME = 'python'
+		DEV = "dev"
+		STAGE = "stage"
+		TEMPLATE_NAME = "pysimple"
 		ARTIFACT_FOLDER = "target"
-		PORT = 8080
+		PORT = 8080;
 	}
 	stages {
 		stage('Get Latest Code'){
