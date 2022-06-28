@@ -13,17 +13,17 @@ pipeline {
 		PORT = 8080;
 	}
 	stages {
-//		stage('cleanup') {
-//      			steps {
-//        			script {
-//            				openshift.withCluster() {
-//                				openshift.withProject(env.DEV) {
-//                  					openshift.selector("bc", "${TEMPLATE_NAME}").delete();
-//                				}
-//            				}
-//        			}
-//      			}
-//    		}
+		stage('cleanup') {
+      			steps {
+        			script {
+            				openshift.withCluster() {
+                				openshift.withProject(env.DEV) {
+                  					openshift.selector("bc", "${TEMPLATE_NAME}").delete();
+                				}
+            				}
+        			}
+      			}
+    		}
 		stage('Get Latest Code'){
 			steps {
 				echo "GET LATEST CODE"
@@ -88,7 +88,7 @@ pipeline {
 				script {
 					openshift.withCluster() {
 						openshift.withProject(env.DEV) {
-							openshift.newBuild("--name=${TEMPLATE_NAME}", "--docker-image=docker.io/alpine:3.15", "--binary=true")
+							openshift.newBuild("--name=${TEMPLATE_NAME}", "--docker-image=docker.io/python:3.10.5-alpine3.15", "--binary=true")
 						}
 					}
 				}
